@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     weekPv: { type: DataTypes.INTEGER, allowNull: false, comment: '周pv' },
     monthPv: { type: DataTypes.INTEGER, allowNull: false, comment: '月pv' },
     // enum.ARTICLE_STATUS
-    status: { type: DataTypes.INTEGER, allowNull: false, comment: '索引状态' }
+    status: { type: DataTypes.INTEGER, defaultValue: 0, comment: '索引状态' },
+    isShare: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '是否分享' }
   }, {
     freezeTableName: true,
     timestamps: true,

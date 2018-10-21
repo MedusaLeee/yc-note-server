@@ -12,7 +12,7 @@ exports.ROLES = ['common', 'admin']
 
 // 文章状态
 exports.ARTICLE_STATUS = {
-  0: '索引完成',
-  1: '索引中',
+  0: '索引中',
+  1: '索引完成',
   2: '索引错误'
 }
