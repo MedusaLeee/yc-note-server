@@ -19,6 +19,7 @@ module.exports = async (ctx, next) => {
     if (err instanceof HttpRequestError || err instanceof HttpResponseError) {
       ctx.status = 500
       ctx.body = {
+        success: false,
         msg: '系统繁忙',
         debug: '系统繁忙',
         type: ''
@@ -31,6 +32,7 @@ module.exports = async (ctx, next) => {
       ctx.status = 500
     }
     ctx.body = {
+      success: false,
       msg: err.message,
       debug: err.message,
       type: ''

@@ -2,6 +2,7 @@
   "logConfig": {
     "level": "ALL"
   },
+  "jwtSignKey": "yc",
   "pg": {
     "username": "jianxun",
     "password": "rootroot",
