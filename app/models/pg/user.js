@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     username: { type: DataTypes.STRING(100), allowNull: false, unique: true, comment: '用户名' },
     password: { type: DataTypes.INTEGER, allowNull: false, comment: '密码' },
     salt: { type: DataTypes.STRING(50), allowNull: false, comment: '盐值' },
-    avatar: { type: DataTypes.STRING(100), allowNull: true, comment: '默认头像' }
+    avatar: { type: DataTypes.STRING(100), allowNull: true, comment: '默认头像' },
+    role: { type: DataTypes.STRING(20), allowNull: false, defaultValue: 'common', comment: '角色' }
   }, {
     freezeTableName: true,
     timestamps: true,
@@ -13,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'user',
     comment: '用户表'
   })
-  User.associate = function (models) { // eslint-disable-line
+  User.associate = function (models) {
+    models.User.hasMany(models.Article, { foreignKey: 'userId', targetKey: 'id', as: 'articles' })
   }
   return User
 }
