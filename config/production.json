@@ -3,7 +3,7 @@
     "level": "ALL"
   },
   "pg": {
-    "username": "root",
+    "username": "jianxun",
     "password": "rootroot",
     "database": "shuyin",
     "host": "127.0.0.1",

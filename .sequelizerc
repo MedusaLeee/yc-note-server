@@ -2,5 +2,6 @@ const path = require('path');
 const config = require('config');
 
 module.exports = {
-  'config': path.resolve('config', 'seqConfig.js')
+  'config': path.resolve('config', 'seqConfig.js'),
+  'models-path': path.resolve('app', 'models', 'pg')
 }
