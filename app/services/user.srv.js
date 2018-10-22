@@ -1,4 +1,5 @@
 const db = require('../db/pg')
+const { CheckError } = require('../error')
 const cryptoHelper = require('../helper/crypto.helper')
 
 const signup = async (username, password) => {
@@ -6,7 +7,11 @@ const signup = async (username, password) => {
     password: p,
     salt
   } = cryptoHelper.encryptPassword(password)
-  const user = await db.User.create({
+  let user = await db.User.findOne({ username })
+  if (user) {
+    throw new CheckError(400, '用户名已存在')
+  }
+  user = await db.User.create({
     username,
     password: p,
     salt
