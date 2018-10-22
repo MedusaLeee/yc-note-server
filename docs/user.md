@@ -19,7 +19,7 @@
 ```
 ## 注册
 
-* Path - /api/user/signup
+* Path - /api/public/signup
 * 方法 - POST
 * 成功应答码 - 200
 * 失败应答码 - 400、500
@@ -48,7 +48,7 @@
 
 ## 登录
 
-* Path - /api/user/signin
+* Path - /api/public/signin
 * 方法 - POST
 * 成功应答码 - 200
 * 失败应答码 - 400、500
