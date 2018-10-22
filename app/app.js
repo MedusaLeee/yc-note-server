@@ -18,7 +18,7 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }))
 
-app.use(jwt({ secret: config.get('jwtSignKey') }).unless({ path: [/^\/api\/public/] }))
+app.use(jwt({ secret: config.get('jwtSignKey'), passthrough: true }).unless({ path: [/^\/api\/public/] }))
 
 // middlewares
 app.use(bodyparser({
