@@ -13,6 +13,19 @@ const signup = async (ctx) => {
   }
 }
 
+const signin = async (ctx) => {
+  const { username, password } = ctx.request.body
+  ctx.assert(!_.isEmpty(username), 400, '用户名不能为空')
+  ctx.assert(!_.isEmpty(password), 400, '密码不能为空')
+  ctx.body = {
+    success: true,
+    data: {
+      token: await userService.signin(username, password)
+    }
+  }
+}
+
 module.exports = {
-  signup
+  signup,
+  signin
 }
