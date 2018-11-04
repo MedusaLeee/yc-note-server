@@ -4,6 +4,7 @@ const json = require('koa-json')
 const bodyparser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
 const cors = require('koa2-cors')
+const serve = require('koa-static');
 const jwt = require('koa-jwt')
 const config = require('config')
 const errorHandle = require('./middleware/errorHandle.mid')
@@ -17,6 +18,7 @@ app.use(cors({
   maxAge: 5,
   allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }))
+app.use(serve('app/public'))
 
 app.use(jwt({ secret: config.get('jwtSignKey'), passthrough: true }).unless({ path: [/^\/api\/public/] }))
 
