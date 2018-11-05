@@ -20,7 +20,6 @@ app.use(cors({
 }))
 app.use(serve('app/public'))
 
-app.use(jwt({ secret: config.get('jwtSignKey'), passthrough: true }).unless({ path: [/^\/api\/public/] }))
 
 // middlewares
 app.use(bodyparser({
@@ -29,6 +28,7 @@ app.use(bodyparser({
 app.use(json())
 app.use(koaLogger())
 app.use(loggerMiddleware.requestLogger)
+app.use(jwt({ secret: config.get('jwtSignKey'), passthrough: true }).unless({ path: [/^\/api\/public/] }))
 // routes
 app.use(index.routes(), index.allowedMethods())
 

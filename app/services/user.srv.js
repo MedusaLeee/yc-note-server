@@ -32,7 +32,7 @@ const signin = async (username, password) => {
   if (p !== user.password) {
     throw new CheckError(400, '用户名密码错误')
   }
-  return jwtHelper.sign({ id: user.id, username }, config.get('jwtSignKey'))
+  return 'Bearer ' + jwtHelper.sign({ id: user.id, username }, config.get('jwtSignKey'))
 }
 
 module.exports = {
