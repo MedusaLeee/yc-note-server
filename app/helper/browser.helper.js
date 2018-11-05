@@ -55,7 +55,7 @@ class BrowserHelper {
         request.continue()
       }
     })
-    await contentPage.goto('http://yc345.tv/student.html')
+    await contentPage.goto(url)
     const title = await contentPage.title()
     const body = await contentPage.$('html')
     const bodyHtml = await contentPage.evaluate(body => body.innerText, body)
