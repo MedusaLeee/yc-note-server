@@ -68,12 +68,12 @@ class BrowserHelper {
     await contentPage.goto(url)
     const title = await contentPage.title()
     const body = await contentPage.$('html')
-    const bodyHtml = await contentPage.evaluate(body => body.innerText, body)
+    const bodyText = await contentPage.evaluate(body => body.innerText, body)
     await contentPage.close()
     return {
       url,
       title,
-      bodyHtml
+      bodyText
     }
   }
   async getPageInfo (url) {

@@ -1,15 +1,31 @@
 const db = require('../db/pg')
 const config = require('config')
-const broswerHelper = require('../helper/browser.helper')
+const browserHelper = require('../helper/browser.helper')
 
 const getPageScreenShot = async (url) => {
-  const { id, name } = await broswerHelper.getPageScreenShot(url)
+  const { name, title } = await browserHelper.getPageInfo(url)
   return {
     imageUrl: `${config.get('serverUrl')}/${name}`,
-    id
+    name,
+    title
   }
 }
 
+const addArticle = async ({ userId, type, description = '', link, imageName, isShare }) => {
+  const { title, bodyText } = await browserHelper.getPageContent(link)
+  const { id } = await db.Article.create({
+    userId,
+    type,
+    title,
+    description,
+    link,
+    thumbPath: imageName,
+    isShare
+  })
+  return id
+}
+
 module.exports = {
-  getPageScreenShot
+  getPageScreenShot,
+  addArticle
 }

@@ -101,7 +101,7 @@
 
 如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
 
-## 获取页面的截图
+## 获取页面的截图及标题
 
 * Path - /api/articles/screen-shot
 * 方法 - POST
@@ -118,7 +118,7 @@
     Body:
 
     {
-    	"url": "http://yc345.tv/teacher.html"
+    	"link": "http://yc345.tv/teacher.html"
     }
 
 如果调用成功，服务会返回200返回码在返回Body附加信息：
@@ -127,8 +127,43 @@
         "success": true,
         "data": {
             "imageUrl": "http://localhost:4000/bce57f02-5b8e-4011-876c-16f516148043-1541511371012.jpg",
-            "id": "bce57f02-5b8e-4011-876c-16f516148043-1541511371012"
+            "name": "bce57f02-5b8e-4011-876c-16f516148043-1541511371012.jpg"
         }
     }
 
+如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
+
+
+## 添加分享文章
+
+* Path - /api/articles
+* 方法 - POST
+* 成功应答码 - 200
+* 失败应答码 - 400、500
+
+请求内容范例：
+
+    POST /api/articles
+    Header:
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
+
+    Body:
+
+    {
+    	"type": 0,
+    	"description": "我觉得很好，所以推荐",
+    	"link": "http://yc345.tv/teacher.html",
+    	"imageName": "db29fb43-4125-49e2-a4a8-8a32d8843528-1541513033694.jpg",
+    	"isShare": true
+    }
+
+如果调用成功，服务会返回200返回码在返回Body附加信息：
+
+    {
+        "success": true,
+        "data": {
+            "id": "fb72cc30-e1cd-11e8-b594-11852866e9f1"
+        }
+    }
 如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
