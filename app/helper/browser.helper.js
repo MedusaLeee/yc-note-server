@@ -7,7 +7,7 @@ class BrowserHelper {
   constructor (baseDirPath) {
     this.baseDirPath = baseDirPath
     this.browser = null
-    // this.init().then()
+    this.init().then()
   }
   async init () {
     this.browser = await puppeteer.launch({
@@ -22,10 +22,16 @@ class BrowserHelper {
     })
   }
   getJPGPath () {
-    return `${this.baseDirPath}/${uuidv4()}-${Date.now()}.jpg`
+    const id = `${uuidv4()}-${Date.now()}`
+    const name = `${id}.jpg`
+    return {
+      path: `${this.baseDirPath}/${name}`,
+      name,
+      id
+    }
   }
   async getPageScreenShot (url) {
-    const filePath = this.getJPGPath()
+    const { path, name, id } = this.getJPGPath()
     const screensPage = await this.browser.newPage()
     await screensPage.setViewport({
       width: 1440,
@@ -33,7 +39,7 @@ class BrowserHelper {
     })
     await screensPage.goto(url)
     await screensPage.screenshot({
-      path: filePath,
+      path,
       type: 'jpeg',
       clip: {
         x: 0,
@@ -43,7 +49,11 @@ class BrowserHelper {
       }
     })
     await screensPage.close()
-    return filePath
+    return {
+      path,
+      name,
+      id
+    }
   }
   async getPageContent (url) {
     const contentPage = await this.browser.newPage()
@@ -67,13 +77,13 @@ class BrowserHelper {
     }
   }
   async getPageInfo (url) {
-    const [imagePath, shot] = await Promise.all([
+    const [image, shot] = await Promise.all([
       this.getPageScreenShot(url),
       this.getPageContent(url)
     ])
     return {
       url,
-      imagePath,
+      ...image,
       ...shot
     }
   }
@@ -82,5 +92,7 @@ class BrowserHelper {
 const browser = new BrowserHelper(path.join(__dirname, '../public'))
 
 module.exports = {
-  getPageInfo: browser.getPageInfo.bind(browser)
+  getPageInfo: browser.getPageInfo.bind(browser),
+  getPageContent: browser.getPageContent.bind(browser),
+  getPageScreenShot: browser.getPageScreenShot.bind(browser)
 }
