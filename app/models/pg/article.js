@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     link: { type: DataTypes.STRING(200), allowNull: true, comment: '源文章URL' },
     thumbPath: { type: DataTypes.STRING(200), allowNull: true, comment: '缩略图路径' },
     // selfTag TODO
-    stars: { type: DataTypes.INTEGER, allowNull: false, comment: '推荐数' },
-    pv: { type: DataTypes.INTEGER, allowNull: false, comment: '总pv' },
-    weekPv: { type: DataTypes.INTEGER, allowNull: false, comment: '周pv' },
-    monthPv: { type: DataTypes.INTEGER, allowNull: false, comment: '月pv' },
+    stars: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '推荐数' },
+    pv: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '总pv' },
+    weekPv: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '周pv' },
+    monthPv: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '月pv' },
     // enum.ARTICLE_STATUS
     status: { type: DataTypes.INTEGER, defaultValue: 0, comment: '索引状态' },
     isShare: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '是否分享' }
