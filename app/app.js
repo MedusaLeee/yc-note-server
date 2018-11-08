@@ -20,7 +20,6 @@ app.use(cors({
 }))
 app.use(serve('app/public'))
 
-
 // middlewares
 app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']

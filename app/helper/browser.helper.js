@@ -73,7 +73,7 @@ class BrowserHelper {
     return {
       url,
       title,
-      bodyText
+      bodyText: bodyText.replace(/\n/g, '')
     }
   }
   async getPageInfo (url) {

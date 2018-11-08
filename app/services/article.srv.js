@@ -1,4 +1,5 @@
 const db = require('../db/pg')
+const esClient = require('../db/es')
 const config = require('config')
 const browserHelper = require('../helper/browser.helper')
 
@@ -13,7 +14,7 @@ const getPageScreenShot = async (url) => {
 
 const addArticle = async ({ userId, type, description = '', link, imageName, isShare }) => {
   const { title, bodyText } = await browserHelper.getPageContent(link)
-  const { id } = await db.Article.create({
+  const body = {
     userId,
     type,
     title,
@@ -21,8 +22,19 @@ const addArticle = async ({ userId, type, description = '', link, imageName, isS
     link,
     thumbPath: imageName,
     isShare
-  })
-  return id
+  }
+  const article = await db.Article.create(body)
+  // 插入es
+  body.content = bodyText
+  body.createdAt = Date.now()
+  const esBody = {
+    index: config.get('esIndex'),
+    type: config.get('esType'),
+    id: article.id,
+    body
+  }
+  await esClient.create(esBody)
+  return article.id
 }
 
 module.exports = {

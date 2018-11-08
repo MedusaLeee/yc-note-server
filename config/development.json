@@ -2,6 +2,8 @@
   "logConfig": {
     "level": "ALL"
   },
+  "esIndex": "notes",
+  "esType": "article",
   "jwtSignKey": "yc",
   "serverUrl": "http://localhost:4000",
   "pg": {
