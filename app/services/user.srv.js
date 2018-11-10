@@ -54,7 +54,25 @@ const signin = async (username, password) => {
   return 'Bearer ' + jwtHelper.sign({ id: user.id, username }, config.get('jwtSignKey'))
 }
 
+const getUserById = async (id) => {
+  const user = await db.User.findById(id, {
+    include: [
+      {
+        model: db.Follow,
+        as: 'follows'
+      }
+    ]
+  })
+  if (!user) {
+    return null
+  }
+  const json = user.toJSON()
+  delete json.password
+  return json
+}
+
 module.exports = {
   signup,
-  signin
+  signin,
+  getUserById
 }

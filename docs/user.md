@@ -74,6 +74,61 @@
 
 如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
 
+## 获取当前登录用户详情
+
+* Path - /api/users/me
+* 方法 - GET
+* 成功应答码 - 200
+* 失败应答码 - 400、500
+
+请求内容范例：
+
+    GET /api/users/me
+
+    Header:
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
+
+
+如果调用成功，服务会返回200返回码在返回Body附加信息：
+
+    {
+        "success": true,
+        "data": {
+            "id": "697bf400-e1c8-11e8-8225-5f431bc9c468",
+            "username": "lijianxun",
+            "salt": "7d012bfa-a58b-4ed6-9fa5-e58194edd8c4",
+            "avatar": null,
+            "role": "common",
+            "createdTime": "2018-11-06T13:32:31.427Z",
+            "updatedTime": "2018-11-06T13:32:31.427Z",
+            "follows": [
+                {
+                    "id": "740e1970-e1c8-11e8-8225-5f431bc9c468",
+                    "userId": "697bf400-e1c8-11e8-8225-5f431bc9c468",
+                    "type": 0,
+                    "createdTime": "2018-11-06T13:32:49.159Z",
+                    "updatedTime": "2018-11-06T13:32:49.159Z"
+                },
+                {
+                    "id": "740e1971-e1c8-11e8-8225-5f431bc9c468",
+                    "userId": "697bf400-e1c8-11e8-8225-5f431bc9c468",
+                    "type": 1,
+                    "createdTime": "2018-11-06T13:32:49.159Z",
+                    "updatedTime": "2018-11-06T13:32:49.159Z"
+                },
+                {
+                    "id": "740e1972-e1c8-11e8-8225-5f431bc9c468",
+                    "userId": "697bf400-e1c8-11e8-8225-5f431bc9c468",
+                    "type": 2,
+                    "createdTime": "2018-11-06T13:32:49.159Z",
+                    "updatedTime": "2018-11-06T13:32:49.159Z"
+                }
+            ]
+        }
+    }
+
+如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
+
 ## 添加关注类型
 
 * Path - /api/follows

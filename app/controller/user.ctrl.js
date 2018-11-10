@@ -26,7 +26,18 @@ const signin = async (ctx) => {
   }
 }
 
+const getMe = async (ctx) => {
+  const id = ctx.state.user.id
+  const user = await userService.getUserById(id)
+  ctx.assert(user, 400, '无此用户')
+  ctx.body = {
+    success: true,
+    data: user
+  }
+}
+
 module.exports = {
   signup,
-  signin
+  signin,
+  getMe
 }
