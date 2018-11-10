@@ -32,7 +32,9 @@
 
     {
     	"username": "lijianxun",
-    	"password": "123456"
+    	"password": "123456",
+      "confirmPassword": "123456",
+      "types": [1, 2]
     }
 
 如果调用成功，服务会返回200返回码在返回Body附加信息：
@@ -58,8 +60,7 @@
 
     {
     	"username": "lijianxun",
-    	"password": "123456",
-    	"confirmPassword": "123456"
+    	"password": "123456"
     }
 
 如果调用成功，服务会返回200返回码在返回Body附加信息：

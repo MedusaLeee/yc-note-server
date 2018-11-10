@@ -1,10 +1,12 @@
 const db = require('../db/pg')
 const config = require('config')
+const _ = require('lodash')
 const { CheckError } = require('../error')
 const cryptoHelper = require('../helper/crypto.helper')
 const jwtHelper = require('../helper/jwt.helper')
+const logger = require('../helper/log.helper').getLogger('user.srv')
 
-const signup = async (username, password) => {
+const signup = async (username, password, types) => {
   const {
     password: p,
     salt
@@ -13,11 +15,28 @@ const signup = async (username, password) => {
   if (user) {
     throw new CheckError(400, '用户名已存在')
   }
-  user = await db.User.create({
-    username,
-    password: p,
-    salt
-  })
+  const transaction = await db.sequelize.transaction()
+  try {
+    user = await db.User.create({
+      username,
+      password: p,
+      salt,
+      follows: _.map(types, t => ({ type: t }))
+    }, {
+      include: [
+        {
+          model: db.Follow,
+          as: 'follows'
+        }
+      ],
+      transaction
+    })
+    await transaction.commit()
+  } catch (e) {
+    logger.error(e.toString())
+    await transaction.rollback()
+    throw new CheckError(500, '注册失败')
+  }
   return user.toJSON()
 }
 
