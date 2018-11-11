@@ -26,7 +26,17 @@ const addArticle = async (ctx) => {
   }
 }
 
+const getList = async (ctx) => {
+  const { dimension = 'latest', type = -1, offset = 0, limit = 10 } = ctx.query
+  const result = await articleService.getList(dimension, type, offset, limit)
+  ctx.body = {
+    success: true,
+    data: result
+  }
+}
+
 module.exports = {
   getScreenShot,
-  addArticle
+  addArticle,
+  getList
 }

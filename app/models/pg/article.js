@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   })
   Article.associate = function (models) {
     models.Article.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'id', as: 'user' })
-    models.Article.hasOne(models.ArticlePV, { foreignKey: 'id', targetKey: 'articleId', as: 'pvInfo' })
+    models.Article.hasOne(models.ArticlePV, { foreignKey: 'articleId', targetKey: 'id', as: 'pvInfo' })
   }
   return Article
 }

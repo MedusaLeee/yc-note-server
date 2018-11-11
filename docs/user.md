@@ -224,6 +224,80 @@
     }
 如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
 
+## 获取首页文章列表
+
+* Path - /api/articles
+* 方法 - GET
+* 成功应答码 - 200
+* 失败应答码 - 400、500
+
+请求内容范例：
+
+    GET /api/articles?dimension=latest&type=-1&offset=0&limit=10
+    Header:
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
+
+参数解释：
+
+* `dimension` 查询维度可选：`latest`, `day`, `week`, `month`，对应 最新，日排行，周排行，月排行，默认`latest`
+* `type` 文章类型，如果是全部分类的话`type`为`-1`，其他分类按字段
+* `offset` 从第几个开始
+* `limit` 取多少条
+
+
+如果调用成功，服务会返回200返回码在返回Body附加信息：
+
+    {
+        "success": true,
+        "data": {
+            "offset": 0,
+            "limit": 10,
+            "type": -1,
+            "total": 1,
+            "data": [
+                {
+                    "articleId": "ff595fa0-e5c7-11e8-af7b-d9e59372b736",
+                    "stars": 0,
+                    "pv": 0,
+                    "dayPV": 0,
+                    "dayStr": "2018-11-11",
+                    "weekPV": 0,
+                    "weekNumber": 46,
+                    "monthPV": 0,
+                    "monthStr": "2018-11",
+                    "createdTime": "2018-11-11T15:39:38.019Z",
+                    "updatedTime": "2018-11-11T15:39:38.019Z",
+                    "article": {
+                        "id": "ff595fa0-e5c7-11e8-af7b-d9e59372b736",
+                        "userId": "ecaf6390-e5c7-11e8-af7b-d9e59372b736",
+                        "type": 0,
+                        "title": "洋葱数学 —— 在线学数学，就找洋葱数学",
+                        "description": "我觉得很好，所以推荐",
+                        "link": "http://yc345.tv/teacher.html",
+                        "thumbPath": "8664b539-2181-438c-a15b-904cfc18291d-1541950765753.jpg",
+                        "status": 0,
+                        "isShare": true,
+                        "createdTime": "2018-11-11T15:39:38.014Z",
+                        "updatedTime": "2018-11-11T15:39:38.014Z",
+                        "user": {
+                            "id": "ecaf6390-e5c7-11e8-af7b-d9e59372b736",
+                            "username": "tom2",
+                            "password": "1be88a34e0704c185c2579d0a3c29be481e16c39f331e7c6193a235b865bfdb5b2f89a4e",
+                            "salt": "de73f561-3f1e-4751-aba6-ea0043af53a7",
+                            "avatar": null,
+                            "role": "common",
+                            "createdTime": "2018-11-11T15:39:06.699Z",
+                            "updatedTime": "2018-11-11T15:39:06.699Z"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+
+如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
+
 * Path - /api/search
 * 方法 - GET
 * 成功应答码 - 200

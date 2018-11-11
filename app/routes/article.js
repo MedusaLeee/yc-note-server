@@ -5,5 +5,6 @@ router.prefix('/articles')
 
 router.post('/screen-shot', articleController.getScreenShot)
 router.post('/', articleController.addArticle)
+router.get('/', articleController.getList)
 
 module.exports = router
