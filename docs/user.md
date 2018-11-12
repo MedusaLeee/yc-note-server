@@ -305,18 +305,20 @@
 
 请求内容范例：
 
-    GET /api/search?keywork=洋葱&from=0&size=10
+    GET /api/search?keyword=洋葱&offset=0&limit=10
     Header:
 
     Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
 
 
-如果调用成功，服务会返回200返回码在返回Body附加信息(返回值少了keywork=洋葱&from=0&size=10三个参数会补上的)：
+如果调用成功，服务会返回200返回码在返回Body附加信息：
 
     {
         "success": true,
         "data": {
             "total": 1,
+            "offset": "0",
+            "limit": "10",
             "max_score": 1.3664899,
             "hits": [
                 {

@@ -14,7 +14,7 @@ const autoCreateIndex = async () => {
   }
 }
 
-const search = async (keyword, userId, from = 0, size = 10) => {
+const search = async (keyword, userId, offset = 0, limit = 10) => {
   const search = {
     index: config.get('esIndex'),
     type: config.get('esType'),
@@ -51,10 +51,13 @@ const search = async (keyword, userId, from = 0, size = 10) => {
         number_of_fragments: 3
       }
     },
-    from,
-    size
+    from: offset,
+    size: limit
   }
   const { hits } = await esHelper.matchQuery(search)
+  hits.offset = offset
+  hits.limit = limit
+  hits.keyword = keyword
   return hits
 }
 
