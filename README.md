@@ -17,8 +17,6 @@ pv接口
 每晚自动更新pv
 
 
-size -> limit
-
 content 删掉
 
 todo

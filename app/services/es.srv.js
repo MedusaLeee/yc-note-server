@@ -18,7 +18,7 @@ const search = async (keyword, userId, offset = 0, limit = 10) => {
   const search = {
     index: config.get('esIndex'),
     type: config.get('esType'),
-    _source: true,
+    _source: ['userId', 'type', 'title', 'description', 'link', 'thumbPath', 'createdAt'],
     body: {
       query: {
         bool: {
