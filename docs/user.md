@@ -298,6 +298,8 @@
 
 如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
 
+## 搜索
+
 * Path - /api/search
 * 方法 - GET
 * 成功应答码 - 200
@@ -310,6 +312,61 @@
 
     Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
 
+
+如果调用成功，服务会返回200返回码在返回Body附加信息：
+
+    {
+        "success": true,
+        "data": {
+            "total": 1,
+            "max_score": 1.3664899,
+            "hits": [
+                {
+                    "_index": "notes",
+                    "_type": "article",
+                    "_id": "ff595fa0-e5c7-11e8-af7b-d9e59372b736",
+                    "_score": 1.3664899,
+                    "_source": {
+                        "createdAt": 1541950778022,
+                        "link": "http://yc345.tv/teacher.html",
+                        "description": "我觉得很好，所以推荐",
+                        "thumbPath": "8664b539-2181-438c-a15b-904cfc18291d-1541950765753.jpg",
+                        "type": 0,
+                        "title": "洋葱数学 —— 在线学数学，就找洋葱数学",
+                        "userId": "ecaf6390-e5c7-11e8-af7b-d9e59372b736"
+                    },
+                    "highlight": {
+                        "content": [
+                            "激发学生学习兴趣课后巩固查漏补缺，学生牢牢掌握知识点千所学校深度使用，赶快来加入全国万所中学使用，近千所中学的一线教师已将<span style=\"color:red\">洋葱</span>数学深度整合在日常教学流程中"
+                        ]
+                    }
+                }
+            ],
+            "offset": 0,
+            "limit": 10,
+            "keyword": "洋葱"
+        }
+    }
+
+如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
+
+## 记录文章访问量
+
+* Path - /api/articles/:id/visit
+* 方法 - GET
+* 成功应答码 - 200
+* 失败应答码 - 400、500
+
+请求内容范例：
+
+    GET /api/articles/ff595fa0-e5c7-11e8-af7b-d9e59372b736/visit
+    Header:
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
+
+参数解释：
+
+* `id` articleId 文章id
 
 如果调用成功，服务会返回200返回码在返回Body附加信息：
 

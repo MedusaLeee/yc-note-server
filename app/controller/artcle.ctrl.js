@@ -35,8 +35,18 @@ const getList = async (ctx) => {
   }
 }
 
+const articleVisit = async (ctx) => {
+  const id = ctx.params.id
+  ctx.assert(id, 400, '文章id必须')
+  await articleService.articleVisit(id)
+  ctx.body = {
+    success: true
+  }
+}
+
 module.exports = {
   getScreenShot,
   addArticle,
-  getList
+  getList,
+  articleVisit
 }

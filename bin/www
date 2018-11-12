@@ -7,6 +7,9 @@ const http = require('http')
 const app = require('../app/app')
 const pkg = require('../package')
 const esService = require('../app/services/es.srv')
+const articleService = require('../app/services/article.srv')
+const cronHelper = require('../app/helper/cronHelper')
+
 const logger = require('../app/helper/log.helper').getLogger('WWW')
 
 const normalizePort = val => {
@@ -45,6 +48,8 @@ const onListening = async () => {
   logger.info(`${pkg.name}(v${pkg.version}) working on ${addr.port}, env is ${env} ...`)
   await esService.autoCreateTemplate()
   await esService.autoCreateIndex()
+  await articleService.resetArticlePV()
+  cronHelper.startCron()
 }
 
 const port = normalizePort(process.env.PORT || '4000s')

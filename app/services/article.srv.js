@@ -2,6 +2,7 @@ const db = require('../db/pg')
 const esClient = require('../db/es')
 const config = require('config')
 const _ = require('lodash')
+const moment = require('moment')
 const { CheckError } = require('../error')
 const browserHelper = require('../helper/browser.helper')
 const logger = require('../helper/log.helper').getLogger('article.srv')
@@ -110,8 +111,55 @@ const getList = async (dimension = 'latest', type = -1, offset = 0, limit = 10) 
   }
 }
 
+const articleVisit = async (id) => {
+  let result
+  try {
+    result = await db.ArticlePV.update(
+      {
+        pv: db.sequelize.literal('"pv"+1'),
+        dayPV: db.sequelize.literal('"dayPV"+1'),
+        weekPV: db.sequelize.literal('"weekPV"+1'),
+        monthPV: db.sequelize.literal('"monthPV"+1')
+      },
+      { where: { articleId: id } }
+    )
+  } catch (e) {
+    logger.error(e)
+  }
+  return result
+}
+
+const resetArticlePV = async () => {
+  const dayStr = moment().format('YYYY-MM-DD')
+  const monthStr = moment().format('YYYY-MM')
+  const weekNumber = moment().week()
+  try {
+    await db.ArticlePV.update({
+      dayPV: 0,
+      weekPV: 0,
+      monthPV: 0
+    }, {
+      where: {
+        dayStr: {
+          $ne: dayStr
+        },
+        weekNumber: {
+          $ne: weekNumber
+        },
+        monthStr: {
+          $ne: monthStr
+        }
+      }
+    })
+  } catch (e) {
+    logger.error(e)
+  }
+}
+
 module.exports = {
   getPageScreenShot,
   addArticle,
-  getList
+  getList,
+  articleVisit,
+  resetArticlePV
 }

@@ -20,6 +20,7 @@
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
     "config": "^2.0.1",
+    "cron": "^1.5.0",
     "elasticsearch": "^15.2.0",
     "jsonwebtoken": "^8.3.0",
     "koa": "^2.5.3",
@@ -47,12 +48,13 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "husky": "^1.1.3",
     "nodemon": "^1.8.1",
-    "pre-commit": "^1.2.2",
     "readline-sync": "^1.4.9"
   },
-  "pre-commit": [
-    "precommit-msg",
-    "standard"
-  ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run standard"
+    }
+  }
 }
