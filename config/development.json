@@ -7,6 +7,7 @@
   "jwtSignKey": "yc",
   "serverUrl": "http://localhost:4000",
   "articleCron": "00 30 1 * * *",
+  "robotPushCron": "*/30 * * * * *",
   "pg": {
     "username": "jianxun",
     "password": "rootroot",
