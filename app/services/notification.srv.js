@@ -19,7 +19,7 @@ const addNotification = async (articleId, type, transaction) => {
 
 const getNotificationListByUserId = async (userId) => {
   const list = await db.Notification.findAll({
-    where: { userId },
+    where: { userId, deleted: false },
     include: [
       {
         model: db.User,
@@ -35,6 +35,16 @@ const getNotificationListByUserId = async (userId) => {
   if (_.isEmpty(list)) {
     return []
   }
+  // 删除已推送的通知
+  await db.Notification.update({
+    deleted: true
+  }, {
+    where: {
+      id: {
+        $in: list.map(n => n.id)
+      }
+    }
+  })
   return list.map(n => {
     const { user, article } = n.toJSON()
     return {

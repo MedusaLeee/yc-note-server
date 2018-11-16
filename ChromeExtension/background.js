@@ -23,7 +23,7 @@ function pullAndEmitNotification () {
         if (item && item.token) {
             axios({
                 method: 'get',
-                url: serverUrl + 's/api/notifications',
+                url: serverUrl + '/api/notifications',
                 headers: {
                     Authorization: item.token
                 }
