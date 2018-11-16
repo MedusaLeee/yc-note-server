@@ -113,6 +113,7 @@ const getList = async (dimension = 'latest', type = -1, offset = 0, limit = 10) 
     offset,
     limit,
     type,
+    dimension,
     total: pageObj.count,
     data: _.map(pageObj.rows, v => v.toJSON())
   }
