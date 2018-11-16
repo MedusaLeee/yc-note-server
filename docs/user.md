@@ -224,6 +224,69 @@
     }
 如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
 
+## 获取当前用户文章列表
+
+* Path - /api/users/articles
+* 方法 - GET
+* 成功应答码 - 200
+* 失败应答码 - 400、500
+
+请求内容范例：
+
+    GET /api/users/articles?type=-1&offset=0&limit=10
+    Header:
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YmEyYjgwLWQ2OTMtMTFlOC1hOGIzLTNiMjVhZWJiYzJjOSIsInVzZXJuYW1lIjoibGlqaWFueHVuIiwiaWF0IjoxNTQxNDI1NTg5fQ.fx6aGKy7radO_sjPJZSIfc2UxRdtYrgafm7mzwA7sWc
+
+参数解释：
+
+* `type` 文章类型，如果是全部分类的话`type`为`-1`，其他分类按字段
+* `offset` 从第几个开始
+* `limit` 取多少条
+
+
+如果调用成功，服务会返回200返回码在返回Body附加信息：
+
+    {
+        "success": true,
+        "data": {
+            "offset": "0",
+            "limit": "2",
+            "type": "-1",
+            "total": 2,
+            "data": [
+                {
+                    "id": "aec46a80-e955-11e8-849f-cfeb96519783",
+                    "userId": "cdf74860-e954-11e8-9caa-e959de78edd5",
+                    "type": 1,
+                    "title": "洋葱数学 —— 在线学数学，就找洋葱数学",
+                    "description": "我觉得很好，所以推荐",
+                    "link": "http://yc345.tv/teacher.html",
+                    "thumbPath": "96c081fd-105c-4da7-b474-41ead49f1efa-1542341155302.jpg",
+                    "status": 0,
+                    "isShare": true,
+                    "createdTime": "2018-11-16T04:11:24.841Z",
+                    "updatedTime": "2018-11-16T04:11:24.841Z"
+                },
+                {
+                    "id": "498dec90-e955-11e8-9caa-e959de78edd5",
+                    "userId": "cdf74860-e954-11e8-9caa-e959de78edd5",
+                    "type": 0,
+                    "title": "洋葱数学 —— 在线学数学，就找洋葱数学",
+                    "description": "我觉得很好，所以推荐",
+                    "link": "http://yc345.tv/teacher.html",
+                    "thumbPath": "96c081fd-105c-4da7-b474-41ead49f1efa-1542341155302.jpg",
+                    "status": 0,
+                    "isShare": true,
+                    "createdTime": "2018-11-16T04:08:35.034Z",
+                    "updatedTime": "2018-11-16T04:08:35.034Z"
+                }
+            ]
+        }
+    }
+
+如果失败，则会返回400,500返回码,在Body中msg中返回error信息。
+
 ## 获取首页文章列表
 
 * Path - /api/articles

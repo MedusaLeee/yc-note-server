@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const userService = require('../services/user.srv')
+const articleService = require('../services/article.srv')
 
 const signup = async (ctx) => {
   const { username, password, confirmPassword, types } = ctx.request.body
@@ -36,8 +37,19 @@ const getMe = async (ctx) => {
   }
 }
 
+const getUserArticleList = async (ctx) => {
+  const id = ctx.state.user.id
+  const { type = -1, offset = 0, limit = 10 } = ctx.query
+  const list = await articleService.getListByUserId(id, type, offset, limit)
+  ctx.body = {
+    success: true,
+    data: list
+  }
+}
+
 module.exports = {
   signup,
   signin,
-  getMe
+  getMe,
+  getUserArticleList
 }

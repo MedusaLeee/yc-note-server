@@ -73,7 +73,9 @@ const addArticle = async ({ userId, type, description = '', link, imageName, isS
  * @returns {Promise<{total: *, data: Array}>}
  */
 const getList = async (dimension = 'latest', type = -1, offset = 0, limit = 10) => {
-  const where = {}
+  const where = {
+    isShare: true
+  }
   const order = []
   if (type !== -1 && dimension !== 'latest') {
     where.type = type
@@ -161,10 +163,33 @@ const resetArticlePV = async () => {
   }
 }
 
+const getListByUserId = async (userId, type = -1, offset = 0, limit = 10) => {
+  const where = {
+    userId
+  }
+  if (parseInt(type) !== -1) {
+    where.type = type
+  }
+  const pageObj = await db.Article.findAndCountAll({
+    where,
+    offset,
+    limit,
+    order: [['createdTime', 'DESC']]
+  })
+  return {
+    offset,
+    limit,
+    type,
+    total: pageObj.count,
+    data: _.map(pageObj.rows, v => v.toJSON())
+  }
+}
+
 module.exports = {
   getPageScreenShot,
   addArticle,
   getList,
   articleVisit,
-  resetArticlePV
+  resetArticlePV,
+  getListByUserId
 }
