@@ -5,6 +5,7 @@ const followRoute = require('./follow')
 const articleRoute = require('./article')
 const userRoute = require('./user')
 const esRoute = require('./es')
+const notificationRoute = require('./notification')
 
 const apiPrefix = '/api'
 
@@ -17,5 +18,6 @@ router.use(`${apiPrefix}`, followRoute.routes())
 router.use(`${apiPrefix}`, articleRoute.routes())
 router.use(`${apiPrefix}`, userRoute.routes())
 router.use(`${apiPrefix}`, esRoute.routes())
+router.use(`${apiPrefix}`, notificationRoute.routes())
 
 module.exports = router

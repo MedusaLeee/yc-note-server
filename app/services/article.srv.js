@@ -4,6 +4,7 @@ const config = require('config')
 const _ = require('lodash')
 const moment = require('moment')
 const { CheckError } = require('../error')
+const notificationService = require('./notification.srv')
 const browserHelper = require('../helper/browser.helper')
 const logger = require('../helper/log.helper').getLogger('article.srv')
 
@@ -50,6 +51,10 @@ const addArticle = async ({ userId, type, description = '', link, imageName, isS
       body
     }
     await esClient.create(esBody)
+    // 添加通知
+    if (isShare) {
+      await notificationService.addNotification(article.id, type, transaction)
+    }
     await transaction.commit()
   } catch (e) {
     logger.error(e.toString())
