@@ -77,7 +77,7 @@ const getList = async (dimension = 'latest', type = -1, offset = 0, limit = 10) 
     isShare: true
   }
   const order = []
-  if (type !== -1 && dimension !== 'latest') {
+  if (parseInt(type) !== -1 && dimension !== 'latest') {
     where.type = type
   }
   switch (dimension) {
